@@ -1,3 +1,6 @@
+bash
+
+cat > /mnt/user-data/outputs/absensi_fixed.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,9 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.12.0/dist/tabler-icons.min.css">
 <style>
-/* ============================================
-   DESIGN TOKENS & RESET
-   ============================================ */
 :root {
   --c-bg: #0d1117;
   --c-surface: #161b22;
@@ -21,7 +21,6 @@
   --c-text: #e6edf3;
   --c-text2: #8b949e;
   --c-text3: #484f58;
-
   --c-blue: #4493f8;
   --c-blue-dim: rgba(68,147,248,0.12);
   --c-blue-glow: rgba(68,147,248,0.25);
@@ -33,96 +32,25 @@
   --c-amber-dim: rgba(210,153,34,0.12);
   --c-purple: #a371f7;
   --c-purple-dim: rgba(163,113,247,0.12);
-
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
-  --r-xl: 20px;
-  --r-full: 9999px;
-
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px; --r-full: 9999px;
   --font: 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'DM Mono', monospace;
-
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: var(--font);
-  background: var(--c-bg);
-  color: var(--c-text);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ============================================
-   LAYOUT
-   ============================================ */
-.app {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-  min-height: 100vh;
-}
-
+body { font-family: var(--font); background: var(--c-bg); color: var(--c-text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+.app { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem; min-height: 100vh; }
 .screen { display: none; animation: fadeIn .25s ease; }
 .screen.active { display: block; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ============================================
-   COMPONENTS: CARD
-   ============================================ */
-.card {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-xl);
-  padding: 1.5rem;
-}
-.card-sm {
-  background: var(--c-surface2);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-lg);
-  padding: 1rem;
-}
-
-/* ============================================
-   COMPONENTS: BUTTON
-   ============================================ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 18px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--c-border2);
-  background: var(--c-surface2);
-  color: var(--c-text);
-  font-family: var(--font);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all .15s;
-  white-space: nowrap;
-  text-decoration: none;
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--r-xl); padding: 1.5rem; }
+.card-sm { background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 1rem; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--r-md); border: 1px solid var(--c-border2); background: var(--c-surface2); color: var(--c-text); font-family: var(--font); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; white-space: nowrap; text-decoration: none; }
 .btn:hover { background: #242d38; border-color: rgba(255,255,255,0.2); }
-.btn-primary {
-  background: var(--c-blue);
-  color: #fff;
-  border-color: var(--c-blue);
-  box-shadow: 0 0 0 0 var(--c-blue-glow);
-}
-.btn-primary:hover {
-  background: #5ba3f9;
-  box-shadow: 0 0 20px var(--c-blue-glow);
-}
+.btn-primary { background: var(--c-blue); color: #fff; border-color: var(--c-blue); }
+.btn-primary:hover { background: #5ba3f9; box-shadow: 0 0 20px var(--c-blue-glow); }
 .btn-success { background: var(--c-green); color: #fff; border-color: var(--c-green); }
 .btn-success:hover { background: #56d36a; }
 .btn-danger { background: var(--c-red); color: #fff; border-color: var(--c-red); }
@@ -130,664 +58,191 @@ body {
 .btn-full { width: 100%; justify-content: center; }
 .btn-sm { padding: 6px 12px; font-size: 13px; }
 .btn-icon { padding: 8px; border-radius: var(--r-md); }
-
-/* ============================================
-   COMPONENTS: FORM
-   ============================================ */
 .form-group { margin-bottom: 1rem; }
-.form-group label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  color: var(--c-text2);
-  margin-bottom: 6px;
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--c-border2);
-  border-radius: var(--r-md);
-  background: var(--c-surface2);
-  color: var(--c-text);
-  font-family: var(--font);
-  font-size: 14px;
-  transition: border-color .15s, box-shadow .15s;
-  outline: none;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--c-blue);
-  box-shadow: 0 0 0 3px var(--c-blue-dim);
-}
+.form-group label { display: block; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--c-text2); margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--c-border2); border-radius: var(--r-md); background: var(--c-surface2); color: var(--c-text); font-family: var(--font); font-size: 14px; transition: border-color .15s, box-shadow .15s; outline: none; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--c-blue); box-shadow: 0 0 0 3px var(--c-blue-dim); }
 .form-group input::placeholder { color: var(--c-text3); }
 .form-group select option { background: var(--c-surface2); }
 .form-group textarea { resize: vertical; min-height: 90px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-/* ============================================
-   BADGE
-   ============================================ */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: var(--r-full);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .02em;
-}
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: var(--r-full); font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 .badge-hadir  { background: var(--c-green-dim); color: var(--c-green); }
 .badge-alfa   { background: var(--c-red-dim);   color: var(--c-red); }
 .badge-izin   { background: var(--c-amber-dim); color: var(--c-amber); }
 .badge-sakit  { background: var(--c-blue-dim);  color: var(--c-blue); }
 .badge-pending{ background: rgba(255,255,255,.06); color: var(--c-text2); }
-
-/* ============================================
-   TABLE
-   ============================================ */
 .table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.table th {
-  text-align: left;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--c-border);
-  color: var(--c-text2);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
-.table td {
-  padding: 11px 12px;
-  border-bottom: 1px solid var(--c-border);
-  color: var(--c-text);
-}
+.table th { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--c-border); color: var(--c-text2); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.table td { padding: 11px 12px; border-bottom: 1px solid var(--c-border); color: var(--c-text); }
 .table tbody tr:hover { background: rgba(255,255,255,.02); }
 .table tbody tr:last-child td { border-bottom: none; }
-
-/* ============================================
-   HEADER
-   ============================================ */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.75rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--c-border);
-}
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--c-border); }
 .header-info { display: flex; flex-direction: column; gap: 2px; }
-.header-title {
-  font-size: 20px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.header-title { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
 .header-title i { font-size: 22px; color: var(--c-blue); }
 .header-sub { font-size: 13px; color: var(--c-text2); }
 .header-right { display: flex; align-items: center; gap: 10px; }
-
-.avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--r-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  background: var(--c-blue-dim);
-  color: var(--c-blue);
-  border: 1px solid rgba(68,147,248,0.25);
-}
+.avatar { width: 38px; height: 38px; border-radius: var(--r-full); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; font-family: var(--font-mono); background: var(--c-blue-dim); color: var(--c-blue); border: 1px solid rgba(68,147,248,0.25); }
 .avatar-green { background: var(--c-green-dim); color: var(--c-green); border-color: rgba(63,185,80,.25); }
 .avatar-amber { background: var(--c-amber-dim); color: var(--c-amber); border-color: rgba(210,153,34,.25); }
+.section-title { font-size: 15px; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+.section-title::before { content: ''; width: 3px; height: 16px; border-radius: 2px; background: var(--c-blue); display: block; }
 
-/* ============================================
-   SECTION TITLE
-   ============================================ */
-.section-title {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-title::before {
-  content: '';
-  width: 3px;
-  height: 16px;
-  border-radius: 2px;
-  background: var(--c-blue);
-  display: block;
-}
-
-/* ============================================
-   LOGIN SCREEN
-   ============================================ */
-.login-wrap {
-  min-height: calc(100vh - 3rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 0;
-}
+/* ===== LOGIN ===== */
+.login-wrap { min-height: calc(100vh - 3rem); display: flex; align-items: center; justify-content: center; padding: 2rem 0; }
 .login-box { width: 100%; max-width: 420px; }
-.login-logo {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.login-logo-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, #1a4fc4 0%, #4493f8 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 14px;
-  box-shadow: 0 8px 32px rgba(68,147,248,0.35);
-  position: relative;
-}
-.login-logo-icon::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 24px;
-  border: 1px solid rgba(68,147,248,0.3);
-}
+.login-logo { text-align: center; margin-bottom: 2rem; }
+.login-logo-icon { width: 72px; height: 72px; border-radius: 22px; background: linear-gradient(135deg, #1a4fc4 0%, #4493f8 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; box-shadow: 0 8px 32px rgba(68,147,248,0.35); position: relative; }
+.login-logo-icon::after { content: ''; position: absolute; inset: -2px; border-radius: 24px; border: 1px solid rgba(68,147,248,0.3); }
 .login-logo-icon i { font-size: 36px; color: #fff; }
 .login-title { font-size: 26px; font-weight: 800; letter-spacing: -.5px; }
 .login-sub { font-size: 14px; color: var(--c-text2); margin-top: 4px; }
-
-.role-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  margin-bottom: 1.5rem;
-  background: var(--c-surface2);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-lg);
-  padding: 4px;
-}
-.role-tab {
-  padding: 9px 8px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: var(--r-md);
-  cursor: pointer;
-  color: var(--c-text2);
-  transition: all .2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.role-tab.active {
-  background: var(--c-blue);
-  color: #fff;
-  font-weight: 600;
-  box-shadow: 0 2px 12px var(--c-blue-glow);
-}
+.role-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 1.5rem; background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 4px; }
+.role-tab { padding: 9px 8px; text-align: center; font-size: 13px; font-weight: 500; border-radius: var(--r-md); cursor: pointer; color: var(--c-text2); transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.role-tab.active { background: var(--c-blue); color: #fff; font-weight: 600; box-shadow: 0 2px 12px var(--c-blue-glow); }
 .role-tab:not(.active):hover { color: var(--c-text); background: rgba(255,255,255,.05); }
+.login-err { display: none; align-items: center; font-size: 13px; color: var(--c-red); margin-bottom: 10px; padding: 8px 12px; background: var(--c-red-dim); border-radius: var(--r-md); border: 1px solid rgba(248,81,73,.2); }
+.login-cred-info { background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-md); padding: 12px 14px; margin-top: 14px; font-size: 12px; }
+.login-cred-info .cred-title { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--c-text2); font-weight: 600; margin-bottom: 8px; }
+.login-cred-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-family: var(--font-mono); font-size: 11px; }
+.login-cred-row:last-child { margin-bottom: 0; }
+.cred-role { padding: 2px 8px; border-radius: var(--r-full); font-size: 11px; font-weight: 600; }
+.cred-mhs { background: var(--c-blue-dim); color: var(--c-blue); }
+.cred-dosen { background: var(--c-green-dim); color: var(--c-green); }
+.cred-admin { background: var(--c-amber-dim); color: var(--c-amber); }
+.cred-val { color: var(--c-text); }
+.pass-wrap { position: relative; }
+.pass-wrap input { padding-right: 40px; }
+.pass-toggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--c-text2); font-size: 16px; padding: 4px; }
+.pass-toggle:hover { color: var(--c-text); }
 
-.login-err {
-  display: none;
-  font-size: 13px;
-  color: var(--c-red);
-  margin-bottom: 10px;
-  padding: 8px 12px;
-  background: var(--c-red-dim);
-  border-radius: var(--r-md);
-  border: 1px solid rgba(248,81,73,.2);
-}
-.login-hint {
-  text-align: center;
-  font-size: 12px;
-  color: var(--c-text3);
-  margin-top: 14px;
-  font-family: var(--font-mono);
-}
-
-/* ============================================
-   DASHBOARD NAV CARDS
-   ============================================ */
-.nav-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 1.75rem;
-}
-.nav-card {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-xl);
-  padding: 1.5rem 1rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all .2s;
-  position: relative;
-  overflow: hidden;
-}
-.nav-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity .2s;
-}
+/* ===== DASHBOARD NAV ===== */
+.nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 1.75rem; }
+.nav-card { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--r-xl); padding: 1.5rem 1rem; text-align: center; cursor: pointer; transition: all .2s; position: relative; overflow: hidden; }
+.nav-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity .2s; }
 .nav-card-presensi::before { background: radial-gradient(circle at top, rgba(68,147,248,.12) 0%, transparent 70%); }
 .nav-card-riwayat::before  { background: radial-gradient(circle at top, rgba(63,185,80,.1) 0%, transparent 70%); }
 .nav-card-izin::before     { background: radial-gradient(circle at top, rgba(210,153,34,.1) 0%, transparent 70%); }
-
 .nav-card:hover { border-color: var(--c-border2); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .nav-card:hover::before { opacity: 1; }
-
-.nav-card-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--r-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 12px;
-  font-size: 26px;
-  transition: transform .2s;
-}
+.nav-card-icon { width: 52px; height: 52px; border-radius: var(--r-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 26px; transition: transform .2s; }
 .nav-card:hover .nav-card-icon { transform: scale(1.1); }
 .nav-card-icon-blue   { background: var(--c-blue-dim); color: var(--c-blue); }
 .nav-card-icon-green  { background: var(--c-green-dim); color: var(--c-green); }
 .nav-card-icon-amber  { background: var(--c-amber-dim); color: var(--c-amber); }
 .nav-card-icon-purple { background: var(--c-purple-dim); color: var(--c-purple); }
-
 .nav-card-label { font-size: 13px; font-weight: 600; color: var(--c-text); }
 .nav-card-desc  { font-size: 11px; color: var(--c-text2); margin-top: 3px; }
 
-/* ============================================
-   STAT CARDS
-   ============================================ */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 1.5rem;
-}
+/* ===== STATS ===== */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
 .stats-grid-4 { grid-template-columns: repeat(4, 1fr); }
-.stat-card {
-  background: var(--c-surface2);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-lg);
-  padding: 1rem 1.25rem;
-  position: relative;
-  overflow: hidden;
-}
-.stat-card::after {
-  content: '';
-  position: absolute;
-  right: -10px;
-  top: -10px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  opacity: .15;
-}
-.stat-green::after { background: var(--c-green); }
-.stat-red::after   { background: var(--c-red); }
-.stat-amber::after { background: var(--c-amber); }
-.stat-blue::after  { background: var(--c-blue); }
-
+.stat-card { background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 1rem 1.25rem; position: relative; overflow: hidden; }
+.stat-card::after { content: ''; position: absolute; right: -10px; top: -10px; width: 60px; height: 60px; border-radius: 50%; opacity: .15; }
+.stat-green::after { background: var(--c-green); } .stat-red::after { background: var(--c-red); } .stat-amber::after { background: var(--c-amber); } .stat-blue::after { background: var(--c-blue); }
 .stat-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--c-text2); font-weight: 600; margin-bottom: 6px; }
 .stat-num { font-size: 32px; font-weight: 800; line-height: 1; font-family: var(--font-mono); }
-.stat-green .stat-num { color: var(--c-green); }
-.stat-red .stat-num   { color: var(--c-red); }
-.stat-amber .stat-num { color: var(--c-amber); }
-.stat-blue .stat-num  { color: var(--c-blue); }
-
-.pct-bar {
-  margin-top: 10px;
-  height: 4px;
-  background: var(--c-border);
-  border-radius: var(--r-full);
-  overflow: hidden;
-}
+.stat-green .stat-num { color: var(--c-green); } .stat-red .stat-num { color: var(--c-red); } .stat-amber .stat-num { color: var(--c-amber); } .stat-blue .stat-num { color: var(--c-blue); }
+.pct-bar { margin-top: 10px; height: 4px; background: var(--c-border); border-radius: var(--r-full); overflow: hidden; }
 .pct-fill { height: 100%; border-radius: var(--r-full); background: linear-gradient(90deg, var(--c-green), #56d36a); transition: width .6s ease; }
 
-/* ============================================
-   CAMERA SCREEN
-   ============================================ */
-.cam-status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: var(--r-md);
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  display: none;
-}
+/* ===== CAMERA ===== */
+.cam-status { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: var(--r-md); font-size: 13px; font-weight: 600; margin-bottom: 1rem; border: 1px solid transparent; display: none; }
 .cam-status.ok  { background: var(--c-green-dim); color: var(--c-green); border-color: rgba(63,185,80,.2); }
 .cam-status.err { background: var(--c-red-dim);   color: var(--c-red);   border-color: rgba(248,81,73,.2); }
-
-.location-info {
-  background: var(--c-surface2);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-lg);
-  padding: 12px 16px;
-  margin-bottom: 1rem;
-  font-size: 13px;
-}
-.location-info-title {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--c-text2);
-  font-weight: 600;
-  margin-bottom: 8px;
-}
+.location-info { background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 12px 16px; margin-bottom: 1rem; font-size: 13px; }
+.location-info-title { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--c-text2); font-weight: 600; margin-bottom: 8px; }
 .loc-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-.map-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border-radius: var(--r-full);
-  font-size: 12px;
-  font-weight: 500;
-}
+.map-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: var(--r-full); font-size: 12px; font-weight: 500; }
 .badge-active   { background: var(--c-blue-dim); color: var(--c-blue); border: 1px solid rgba(68,147,248,.2); }
 .badge-inactive { background: rgba(255,255,255,.04); color: var(--c-text2); border: 1px solid var(--c-border); }
-
-.cam-box {
-  background: #0a0a0a;
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  position: relative;
-  aspect-ratio: 4 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-  border: 1px solid var(--c-border);
-  box-shadow: inset 0 0 60px rgba(0,0,0,.5);
-}
-.cam-box video,
-.cam-box canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0; left: 0;
-}
-.cam-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-.cam-ring {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 2px solid rgba(68,147,248,.8);
-  box-shadow: 0 0 0 2000px rgba(0,0,0,.3), 0 0 30px rgba(68,147,248,.4);
-  animation: ringPulse 2s ease-in-out infinite;
-}
-@keyframes ringPulse {
-  0%, 100% { box-shadow: 0 0 0 2000px rgba(0,0,0,.3), 0 0 20px rgba(68,147,248,.3); }
-  50%       { box-shadow: 0 0 0 2000px rgba(0,0,0,.3), 0 0 40px rgba(68,147,248,.6); }
-}
-.cam-label {
-  margin-top: 14px;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255,255,255,.9);
-  background: rgba(0,0,0,.6);
-  padding: 5px 14px;
-  border-radius: var(--r-full);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.1);
-}
-.cam-disabled {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: #fff;
-  backdrop-filter: blur(4px);
-}
+.cam-box { background: #0a0a0a; border-radius: var(--r-xl); overflow: hidden; position: relative; aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; border: 1px solid var(--c-border); box-shadow: inset 0 0 60px rgba(0,0,0,.5); }
+.cam-box video, .cam-box canvas { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+.cam-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
+.cam-ring { width: 200px; height: 200px; border-radius: 50%; border: 2px solid rgba(68,147,248,.8); box-shadow: 0 0 0 2000px rgba(0,0,0,.3), 0 0 30px rgba(68,147,248,.4); animation: ringPulse 2s ease-in-out infinite; }
+@keyframes ringPulse { 0%, 100% { box-shadow: 0 0 0 2000px rgba(0,0,0,.3), 0 0 20px rgba(68,147,248,.3); } 50% { box-shadow: 0 0 0 2000px rgba(0,0,0,.3), 0 0 40px rgba(68,147,248,.6); } }
+.cam-label { margin-top: 14px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.9); background: rgba(0,0,0,.6); padding: 5px 14px; border-radius: var(--r-full); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.1); }
+.cam-disabled { position: absolute; inset: 0; background: rgba(0,0,0,.75); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #fff; backdrop-filter: blur(4px); }
 .cam-disabled i { font-size: 52px; color: rgba(255,255,255,.25); }
 .cam-disabled p { font-size: 14px; color: rgba(255,255,255,.6); text-align: center; padding: 0 2rem; line-height: 1.5; }
-
-.sim-links {
-  text-align: center;
-  font-size: 12px;
-  color: var(--c-text2);
-  margin-top: 8px;
-  font-family: var(--font-mono);
-}
+.sim-links { text-align: center; font-size: 12px; color: var(--c-text2); margin-top: 8px; font-family: var(--font-mono); }
 .sim-links a { text-decoration: none; font-weight: 500; }
-.sim-links a.in  { color: var(--c-blue); }
-.sim-links a.out { color: var(--c-red); }
+.sim-links a.in { color: var(--c-blue); } .sim-links a.out { color: var(--c-red); }
 
-/* ============================================
-   SUCCESS SCREEN
-   ============================================ */
+/* ===== SUCCESS ===== */
 .success-box { text-align: center; padding: 1.5rem 1rem; }
-.success-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--c-green-dim);
-  border: 2px solid rgba(63,185,80,.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.25rem;
-  animation: popIn .4s cubic-bezier(.175,.885,.32,1.275);
-}
-@keyframes popIn {
-  from { transform: scale(.5); opacity: 0; }
-  to   { transform: scale(1);  opacity: 1; }
-}
+.success-icon { width: 80px; height: 80px; border-radius: 50%; background: var(--c-green-dim); border: 2px solid rgba(63,185,80,.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275); }
+@keyframes popIn { from { transform: scale(.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .success-icon i { font-size: 40px; color: var(--c-green); }
 .success-title { font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
 .success-sub { font-size: 14px; color: var(--c-text2); margin-top: 4px; }
-
-.captured-img {
-  width: 100%;
-  max-width: 180px;
-  border-radius: var(--r-xl);
-  margin: 1rem auto;
-  display: none;
-  border: 2px solid rgba(63,185,80,.3);
-  box-shadow: 0 4px 20px rgba(0,0,0,.5);
-}
-
-.success-data {
-  background: var(--c-surface2);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-lg);
-  padding: 1rem;
-  margin: 1rem 0;
-  text-align: left;
-}
-.success-data-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--c-border);
-  font-size: 13px;
-}
+.captured-img { width: 100%; max-width: 180px; border-radius: var(--r-xl); margin: 1rem auto; display: none; border: 2px solid rgba(63,185,80,.3); box-shadow: 0 4px 20px rgba(0,0,0,.5); }
+.success-data { background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 1rem; margin: 1rem 0; text-align: left; }
+.success-data-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--c-border); font-size: 13px; }
 .success-data-row:last-child { border-bottom: none; }
 .success-data-row span:first-child { color: var(--c-text2); }
 .success-data-row span:last-child  { font-weight: 600; }
 
-/* ============================================
-   TABS
-   ============================================ */
-.tabs-wrap {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 1.5rem;
-  background: var(--c-surface2);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-lg);
-  padding: 4px;
-}
-.tab-btn {
-  flex: 1;
-  padding: 8px 14px;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: var(--r-md);
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--c-text2);
-  font-family: var(--font);
-  transition: all .15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
+/* ===== TABS ===== */
+.tabs-wrap { display: flex; gap: 6px; margin-bottom: 1.5rem; background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 4px; }
+.tab-btn { flex: 1; padding: 8px 14px; font-size: 13px; font-weight: 500; border-radius: var(--r-md); cursor: pointer; border: none; background: transparent; color: var(--c-text2); font-family: var(--font); transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .tab-btn.active { background: var(--c-blue); color: #fff; font-weight: 600; box-shadow: 0 2px 10px var(--c-blue-glow); }
 .tab-btn:not(.active):hover { color: var(--c-text); background: rgba(255,255,255,.05); }
-
-/* Inline tabs (admin) */
-.admin-tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-.admin-tab {
-  padding: 7px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: var(--r-full);
-  cursor: pointer;
-  border: 1px solid var(--c-border);
-  background: transparent;
-  color: var(--c-text2);
-  font-family: var(--font);
-  transition: all .15s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.admin-tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.admin-tab { padding: 7px 16px; font-size: 13px; font-weight: 500; border-radius: var(--r-full); cursor: pointer; border: 1px solid var(--c-border); background: transparent; color: var(--c-text2); font-family: var(--font); transition: all .15s; display: flex; align-items: center; gap: 6px; }
 .admin-tab.active { background: var(--c-blue); color: #fff; border-color: var(--c-blue); box-shadow: 0 2px 12px var(--c-blue-glow); }
 .admin-tab:not(.active):hover { border-color: var(--c-border2); color: var(--c-text); }
-
-/* ============================================
-   LOCATION CARDS (Admin)
-   ============================================ */
-.location-card {
-  background: var(--c-surface2);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-lg);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  transition: border-color .15s;
-}
+.location-card { background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: border-color .15s; }
 .location-card:hover { border-color: var(--c-border2); }
 .location-name { font-size: 14px; font-weight: 600; }
 .location-meta { font-size: 12px; color: var(--c-text2); margin-top: 3px; font-family: var(--font-mono); }
-
-/* TOGGLE */
-.toggle {
-  width: 44px;
-  height: 24px;
-  background: rgba(255,255,255,.1);
-  border-radius: var(--r-full);
-  cursor: pointer;
-  position: relative;
-  transition: background .2s;
-  flex-shrink: 0;
-  border: 1px solid var(--c-border);
-}
+.toggle { width: 44px; height: 24px; background: rgba(255,255,255,.1); border-radius: var(--r-full); cursor: pointer; position: relative; transition: background .2s; flex-shrink: 0; border: 1px solid var(--c-border); }
 .toggle.on { background: var(--c-blue); border-color: var(--c-blue); }
-.toggle::after {
-  content: '';
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: left .2s;
-  box-shadow: var(--shadow-sm);
-}
+.toggle::after { content: ''; width: 18px; height: 18px; border-radius: 50%; background: #fff; position: absolute; top: 2px; left: 2px; transition: left .2s; box-shadow: var(--shadow-sm); }
 .toggle.on::after { left: 22px; }
-
-/* ============================================
-   DOSEN TABS
-   ============================================ */
-.dosen-tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* ============================================
-   BACK HEADER (sub-screens)
-   ============================================ */
-.sub-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--c-border);
-}
+.dosen-tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.sub-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--c-border); }
 .sub-header-center { font-size: 16px; font-weight: 700; }
-
-/* ============================================
-   EMPTY STATE
-   ============================================ */
-.empty-state {
-  text-align: center;
-  padding: 2rem;
-  color: var(--c-text2);
-  font-size: 13px;
-}
+.empty-state { text-align: center; padding: 2rem; color: var(--c-text2); font-size: 13px; }
 .empty-state i { font-size: 36px; display: block; margin-bottom: 8px; opacity: .4; }
-
-/* ============================================
-   SCROLLBAR
-   ============================================ */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--c-border2); border-radius: 99px; }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* ===== MODAL ===== */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); animation: fadeIn .2s; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--c-surface); border: 1px solid var(--c-border2); border-radius: var(--r-xl); padding: 1.5rem; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; animation: popIn .25s cubic-bezier(.175,.885,.32,1.275); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+.modal-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.modal-title i { color: var(--c-blue); }
+.modal-close { background: none; border: 1px solid var(--c-border); border-radius: var(--r-md); padding: 6px; cursor: pointer; color: var(--c-text2); font-size: 16px; line-height: 1; transition: all .15s; }
+.modal-close:hover { background: var(--c-surface2); color: var(--c-text); }
+.modal-selfie { width: 100%; max-width: 260px; border-radius: var(--r-xl); display: block; margin: 0 auto 1rem; border: 2px solid var(--c-border2); background: var(--c-surface2); aspect-ratio: 3/4; object-fit: cover; }
+.modal-selfie-placeholder { width: 100%; max-width: 260px; aspect-ratio: 3/4; border-radius: var(--r-xl); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1rem; border: 2px dashed var(--c-border2); background: var(--c-surface2); gap: 8px; }
+.modal-selfie-placeholder i { font-size: 48px; color: var(--c-text3); }
+.modal-selfie-placeholder span { font-size: 13px; color: var(--c-text2); }
+.modal-section { margin-bottom: 1.25rem; }
+.modal-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--c-text2); font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.modal-info-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--c-border); font-size: 13px; }
+.modal-info-row:last-child { border-bottom: none; }
+.modal-info-row span:first-child { color: var(--c-text2); }
+.modal-info-row span:last-child  { font-weight: 600; }
+.surat-box { background: var(--c-surface2); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: 1rem; }
+.surat-doc { display: flex; align-items: center; gap: 12px; }
+.surat-icon { width: 44px; height: 44px; border-radius: var(--r-md); background: var(--c-amber-dim); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.surat-icon i { font-size: 20px; color: var(--c-amber); }
+.surat-name { font-size: 13px; font-weight: 600; }
+.surat-meta { font-size: 12px; color: var(--c-text2); margin-top: 2px; }
+.surat-actions { margin-top: 10px; display: flex; gap: 8px; }
+.btn-view { background: var(--c-blue-dim); color: var(--c-blue); border-color: rgba(68,147,248,.3); font-size: 12px; padding: 5px 12px; }
+.btn-view:hover { background: rgba(68,147,248,.2); }
+
+/* ===== DOSEN TABLE ACTION ===== */
+.dosen-action-btn { background: var(--c-blue-dim); color: var(--c-blue); border: 1px solid rgba(68,147,248,.3); padding: 4px 10px; font-size: 12px; border-radius: var(--r-md); cursor: pointer; font-family: var(--font); font-weight: 500; transition: all .15s; display: inline-flex; align-items: center; gap: 4px; }
+.dosen-action-btn:hover { background: rgba(68,147,248,.25); }
+
 @media (max-width: 600px) {
   .nav-grid { grid-template-columns: 1fr 1fr; }
   .nav-grid .nav-card:last-child { grid-column: span 2; }
@@ -796,6 +251,7 @@ body {
   .admin-tabs { gap: 4px; }
   .admin-tab { font-size: 12px; padding: 6px 12px; }
 }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -828,21 +284,41 @@ body {
       <div class="card">
         <div class="form-group">
           <label>ID / NIM / NIP</label>
-          <input type="text" id="inp-id" placeholder="Masukkan ID Anda" value="22010001">
+          <input type="text" id="inp-id" placeholder="Masukkan ID Anda">
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" id="inp-pass" placeholder="••••••••" value="password">
+          <div class="pass-wrap">
+            <input type="password" id="inp-pass" placeholder="Masukkan password" onkeydown="if(event.key==='Enter') doLogin()">
+            <button class="pass-toggle" type="button" onclick="togglePass()" id="btn-pass-toggle" title="Tampilkan/Sembunyikan password">
+              <i class="ti ti-eye" id="pass-eye-icon"></i>
+            </button>
+          </div>
         </div>
         <div class="login-err" id="login-err">
-          <i class="ti ti-alert-circle" style="margin-right:6px"></i>ID atau password tidak valid.
+          <i class="ti ti-alert-circle" style="margin-right:6px"></i>
+          <span id="login-err-msg">ID atau password tidak valid.</span>
         </div>
         <button class="btn btn-primary btn-full" onclick="doLogin()">
           <i class="ti ti-login"></i> Masuk
         </button>
       </div>
 
-      <p class="login-hint">Demo: ID dan password apapun dapat masuk</p>
+      <div class="login-cred-info">
+        <div class="cred-title"><i class="ti ti-key" style="font-size:11px"></i> Akun Demo</div>
+        <div class="login-cred-row">
+          <span class="cred-role cred-mhs">Mahasiswa</span>
+          <span class="cred-val">ID: <b>22010001</b> &nbsp;·&nbsp; Pass: <b>mhs123</b></span>
+        </div>
+        <div class="login-cred-row">
+          <span class="cred-role cred-dosen">Dosen</span>
+          <span class="cred-val">ID: <b>D001</b> &nbsp;·&nbsp; Pass: <b>dosen123</b></span>
+        </div>
+        <div class="login-cred-row">
+          <span class="cred-role cred-admin">Admin</span>
+          <span class="cred-val">ID: <b>admin</b> &nbsp;·&nbsp; Pass: <b>admin123</b></span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -974,39 +450,17 @@ body {
       <div class="success-icon"><i class="ti ti-check"></i></div>
       <div class="success-title">Presensi Berhasil!</div>
       <div class="success-sub">Foto selfie dan lokasi Anda telah terverifikasi</div>
-
       <img id="selfie-preview" class="captured-img" src="" alt="Foto selfie absensi">
-
       <div class="success-data">
-        <div class="success-data-row">
-          <span>Tanggal</span>
-          <span id="s-tanggal">—</span>
-        </div>
-        <div class="success-data-row">
-          <span>Waktu</span>
-          <span id="s-waktu">—</span>
-        </div>
-        <div class="success-data-row">
-          <span>Lokasi Valid</span>
-          <span style="color:var(--c-green)"><i class="ti ti-map-pin" style="font-size:13px"></i> Kampus A</span>
-        </div>
-        <div class="success-data-row">
-          <span>Mata Kuliah</span>
-          <span>Matematika Dasar</span>
-        </div>
-        <div class="success-data-row">
-          <span>Status</span>
-          <span class="badge badge-hadir"><i class="ti ti-check" style="font-size:11px"></i> Hadir</span>
-        </div>
+        <div class="success-data-row"><span>Tanggal</span><span id="s-tanggal">—</span></div>
+        <div class="success-data-row"><span>Waktu</span><span id="s-waktu">—</span></div>
+        <div class="success-data-row"><span>Lokasi Valid</span><span style="color:var(--c-green)"><i class="ti ti-map-pin" style="font-size:13px"></i> Kampus A</span></div>
+        <div class="success-data-row"><span>Mata Kuliah</span><span>Matematika Dasar</span></div>
+        <div class="success-data-row"><span>Status</span><span class="badge badge-hadir"><i class="ti ti-check" style="font-size:11px"></i> Hadir</span></div>
       </div>
-
       <div style="display:flex;gap:10px;justify-content:center">
-        <button class="btn btn-success" onclick="submitAbsensi()">
-          <i class="ti ti-upload"></i> Submit Data
-        </button>
-        <button class="btn" onclick="goTo('screen-mhs')">
-          <i class="ti ti-home"></i> Dashboard
-        </button>
+        <button class="btn btn-success" onclick="submitAbsensi()"><i class="ti ti-upload"></i> Submit Data</button>
+        <button class="btn" onclick="goTo('screen-mhs')"><i class="ti ti-home"></i> Dashboard</button>
       </div>
     </div>
   </div>
@@ -1019,33 +473,15 @@ body {
     <div class="sub-header-center">Riwayat Kehadiran</div>
     <div style="width:80px"></div>
   </div>
-
   <div class="stats-grid" style="margin-bottom:1.5rem">
-    <div class="stat-card stat-green">
-      <div class="stat-lbl">Total Hadir</div>
-      <div class="stat-num" id="r-hadir">47</div>
-    </div>
-    <div class="stat-card stat-red">
-      <div class="stat-lbl">Alfa</div>
-      <div class="stat-num" id="r-alfa">3</div>
-    </div>
-    <div class="stat-card stat-amber">
-      <div class="stat-lbl">Izin/Sakit</div>
-      <div class="stat-num" id="r-izin">2</div>
-    </div>
+    <div class="stat-card stat-green"><div class="stat-lbl">Total Hadir</div><div class="stat-num" id="r-hadir">47</div></div>
+    <div class="stat-card stat-red"><div class="stat-lbl">Alfa</div><div class="stat-num" id="r-alfa">3</div></div>
+    <div class="stat-card stat-amber"><div class="stat-lbl">Izin/Sakit</div><div class="stat-num" id="r-izin">2</div></div>
   </div>
-
   <div class="card">
     <div class="section-title">Detail Kehadiran</div>
     <table class="table">
-      <thead>
-        <tr>
-          <th>Tanggal</th>
-          <th>Mata Kuliah</th>
-          <th>Waktu</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Tanggal</th><th>Mata Kuliah</th><th>Waktu</th><th>Status</th></tr></thead>
       <tbody id="tbl-riwayat"></tbody>
     </table>
   </div>
@@ -1058,13 +494,12 @@ body {
     <div class="sub-header-center">Ajukan Izin / Sakit</div>
     <div style="width:80px"></div>
   </div>
-
   <div class="card" style="margin-bottom:1rem">
     <div class="section-title">Form Pengajuan</div>
     <div class="form-row">
       <div class="form-group">
         <label>Jenis Izin</label>
-        <select>
+        <select id="izin-jenis">
           <option>Izin</option>
           <option>Sakit</option>
         </select>
@@ -1091,23 +526,31 @@ body {
     </div>
     <div class="form-group">
       <label>Keterangan</label>
-      <textarea placeholder="Tulis alasan pengajuan izin secara jelas…"></textarea>
+      <textarea id="izin-ket" placeholder="Tulis alasan pengajuan izin secara jelas…"></textarea>
     </div>
     <div class="form-group">
-      <label>Dokumen Pendukung <span style="text-transform:none;font-weight:400;color:var(--c-text3)">(opsional)</span></label>
-      <input type="file" style="font-size:13px;color:var(--c-text2)">
+      <label>Surat Keterangan / Dokumen Pendukung <span style="text-transform:none;font-weight:400;color:var(--c-text3)">(wajib untuk Sakit)</span></label>
+      <input type="file" id="izin-file" accept=".pdf,.jpg,.jpeg,.png" style="font-size:13px;color:var(--c-text2)" onchange="handleFileUpload(this)">
+      <div id="file-preview-wrap" style="display:none;margin-top:10px">
+        <div class="surat-box">
+          <div class="surat-doc">
+            <div class="surat-icon"><i class="ti ti-file-description"></i></div>
+            <div>
+              <div class="surat-name" id="file-preview-name">—</div>
+              <div class="surat-meta" id="file-preview-size">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <button class="btn btn-primary btn-full" onclick="submitIzin()">
       <i class="ti ti-send"></i> Kirim Permohonan
     </button>
   </div>
-
   <div class="card">
     <div class="section-title">Riwayat Pengajuan</div>
     <table class="table">
-      <thead>
-        <tr><th>Tanggal</th><th>Jenis</th><th>Keterangan</th><th>Status</th></tr>
-      </thead>
+      <thead><tr><th>Tanggal</th><th>Jenis</th><th>Keterangan</th><th>Status</th></tr></thead>
       <tbody>
         <tr><td>13 Mar 2025</td><td>Izin</td><td>Keperluan keluarga</td><td><span class="badge badge-hadir">Disetujui</span></td></tr>
         <tr><td>27 Mar 2025</td><td>Sakit</td><td>Demam (surat dokter)</td><td><span class="badge badge-hadir">Disetujui</span></td></tr>
@@ -1131,22 +574,10 @@ body {
   </div>
 
   <div class="stats-grid stats-grid-4" style="margin-bottom:1.5rem">
-    <div class="stat-card stat-blue">
-      <div class="stat-lbl">Total Mhs</div>
-      <div class="stat-num">52</div>
-    </div>
-    <div class="stat-card stat-green">
-      <div class="stat-lbl">Hadir</div>
-      <div class="stat-num" id="d-hadir">47</div>
-    </div>
-    <div class="stat-card stat-red">
-      <div class="stat-lbl">Alfa</div>
-      <div class="stat-num" id="d-alfa">3</div>
-    </div>
-    <div class="stat-card stat-amber">
-      <div class="stat-lbl">Izin/Sakit</div>
-      <div class="stat-num" id="d-izin">2</div>
-    </div>
+    <div class="stat-card stat-blue"><div class="stat-lbl">Total Mhs</div><div class="stat-num">7</div></div>
+    <div class="stat-card stat-green"><div class="stat-lbl">Hadir</div><div class="stat-num" id="d-hadir">47</div></div>
+    <div class="stat-card stat-red"><div class="stat-lbl">Alfa</div><div class="stat-num" id="d-alfa">3</div></div>
+    <div class="stat-card stat-amber"><div class="stat-lbl">Izin/Sakit</div><div class="stat-num" id="d-izin">2</div></div>
   </div>
 
   <div class="tabs-wrap" style="margin-bottom:1.5rem">
@@ -1158,6 +589,9 @@ body {
     </button>
     <button class="tab-btn" onclick="setDosenTab('izin', this)">
       <i class="ti ti-file-text"></i> Izin/Sakit
+    </button>
+    <button class="tab-btn" onclick="setDosenTab('semua', this)">
+      <i class="ti ti-list"></i> Semua
     </button>
   </div>
 
@@ -1190,40 +624,106 @@ body {
       <button class="btn btn-icon" onclick="logout()"><i class="ti ti-logout"></i></button>
     </div>
   </div>
-
   <div class="admin-tabs">
-    <button class="admin-tab active" onclick="setAdminTab('lokasi', this)">
-      <i class="ti ti-map-pin"></i> Kelola Lokasi
-    </button>
-    <button class="admin-tab" onclick="setAdminTab('kehadiran', this)">
-      <i class="ti ti-calendar-stats"></i> Semua Kehadiran
-    </button>
-    <button class="admin-tab" onclick="setAdminTab('pengguna', this)">
-      <i class="ti ti-users"></i> Pengguna
-    </button>
-    <button class="admin-tab" onclick="setAdminTab('izin', this)">
-      <i class="ti ti-clipboard-check"></i> Persetujuan Izin
-    </button>
+    <button class="admin-tab active" onclick="setAdminTab('lokasi', this)"><i class="ti ti-map-pin"></i> Kelola Lokasi</button>
+    <button class="admin-tab" onclick="setAdminTab('kehadiran', this)"><i class="ti ti-calendar-stats"></i> Semua Kehadiran</button>
+    <button class="admin-tab" onclick="setAdminTab('pengguna', this)"><i class="ti ti-users"></i> Pengguna</button>
+    <button class="admin-tab" onclick="setAdminTab('izin', this)"><i class="ti ti-clipboard-check"></i> Persetujuan Izin</button>
   </div>
-
   <div id="admin-content"></div>
 </div>
 
 </div><!-- /.app -->
 
-<style>
-@keyframes spin { to { transform: rotate(360deg); } }
-</style>
+<!-- ==================== MODAL DETAIL MAHASISWA (DOSEN) ==================== -->
+<div class="modal-overlay" id="modal-detail">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title"><i class="ti ti-user-circle"></i> <span id="modal-mhs-nama">—</span></div>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    </div>
+
+    <!-- Foto Selfie -->
+    <div class="modal-section">
+      <div class="modal-section-title"><i class="ti ti-camera"></i> Foto Selfie Terakhir</div>
+      <div id="modal-selfie-wrap">
+        <div class="modal-selfie-placeholder" id="modal-no-selfie">
+          <i class="ti ti-camera-off"></i>
+          <span>Belum ada foto selfie</span>
+        </div>
+        <img id="modal-selfie-img" class="modal-selfie" src="" alt="Foto selfie" style="display:none">
+      </div>
+      <div id="modal-selfie-info" style="text-align:center;font-size:12px;color:var(--c-text2);margin-top:8px;display:none">
+        <i class="ti ti-clock" style="font-size:12px"></i> <span id="modal-selfie-time">—</span>
+      </div>
+    </div>
+
+    <!-- Info Mahasiswa -->
+    <div class="modal-section">
+      <div class="modal-section-title"><i class="ti ti-id-badge"></i> Informasi Mahasiswa</div>
+      <div style="background:var(--c-surface2);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:.75rem 1rem">
+        <div class="modal-info-row"><span>NIM</span><span id="modal-nim" style="font-family:var(--font-mono)">—</span></div>
+        <div class="modal-info-row"><span>Nama</span><span id="modal-nama">—</span></div>
+        <div class="modal-info-row"><span>Hadir</span><span id="modal-hadir" style="color:var(--c-green)">—</span></div>
+        <div class="modal-info-row"><span>Alfa</span><span id="modal-alfa" style="color:var(--c-red)">—</span></div>
+        <div class="modal-info-row"><span>Izin/Sakit</span><span id="modal-izin" style="color:var(--c-amber)">—</span></div>
+        <div class="modal-info-row"><span>% Kehadiran</span><span id="modal-pct" style="font-family:var(--font-mono);font-weight:700">—</span></div>
+      </div>
+    </div>
+
+    <!-- Surat Izin -->
+    <div class="modal-section" id="modal-surat-section" style="display:none">
+      <div class="modal-section-title"><i class="ti ti-file-description"></i> Surat / Dokumen Izin</div>
+      <div class="surat-box">
+        <div class="surat-doc">
+          <div class="surat-icon"><i class="ti ti-file-description"></i></div>
+          <div>
+            <div class="surat-name" id="modal-surat-nama">surat_izin.pdf</div>
+            <div class="surat-meta" id="modal-surat-meta">PDF · Dikirim 26 Jun 2025</div>
+          </div>
+        </div>
+        <div class="surat-actions">
+          <button class="btn btn-view btn-sm" onclick="alert('Fitur pratinjau dokumen tersedia di versi server.')">
+            <i class="ti ti-eye"></i> Lihat Surat
+          </button>
+          <button class="btn btn-sm" onclick="alert('Dokumen diunduh.')">
+            <i class="ti ti-download"></i> Unduh
+          </button>
+        </div>
+        <div id="modal-surat-img-wrap" style="margin-top:10px;display:none">
+          <img id="modal-surat-img" style="width:100%;border-radius:var(--r-md);border:1px solid var(--c-border)" src="" alt="Surat izin">
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:.5rem">
+      <button class="btn btn-success btn-sm" id="modal-approve-btn" style="display:none" onclick="approveFromModal()">
+        <i class="ti ti-check"></i> Setujui Izin
+      </button>
+      <button class="btn btn-danger btn-sm" id="modal-reject-btn" style="display:none" onclick="rejectFromModal()">
+        <i class="ti ti-x"></i> Tolak
+      </button>
+      <button class="btn btn-sm" onclick="closeModal()"><i class="ti ti-x"></i> Tutup</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ============================================================
-   STATE & DATA
+   DATA
    ============================================================ */
 var currentRole = 'mahasiswa';
 var camStream = null;
 var inRange = false;
-var dosenTabActiveEl = null;
-var adminTabActiveEl = null;
+var modalCurrentNim = null;
+var uploadedFileData = null; // { name, size, dataUrl }
+
+// Akun valid
+var accounts = {
+  mahasiswa: { id: '22010001', pass: 'mhs123', nama: 'Ahmad Fauzi' },
+  dosen:     { id: 'D001',    pass: 'dosen123', nama: 'Prof. Dr. Anton Setiawan' },
+  admin:     { id: 'admin',   pass: 'admin123', nama: 'Administrator' }
+};
 
 var riwayatData = [
   {tgl:'05 Mei 2025', mk:'Matematika Dasar',  waktu:'08:12', status:'hadir'},
@@ -1238,14 +738,25 @@ var riwayatData = [
   {tgl:'26 Mei 2025', mk:'Matematika Dasar',   waktu:'08:09', status:'hadir'},
 ];
 
+// selfieData: simpan foto selfie terakhir per NIM (akan diisi saat mahasiswa ambil foto)
+var selfieData = {
+  '22010001': { dataUrl: null, waktu: null }
+};
+
+// suratData: dokumen izin per NIM
+var suratData = {
+  '22010003': { nama: 'surat_sakit_budi.jpg', meta: 'JPG · Dikirim 26 Mei 2025', hasImage: false },
+  '22010005': { nama: 'surat_dokter_eko.pdf', meta: 'PDF · Dikirim 27 Mei 2025', hasImage: false },
+};
+
 var mhsData = [
-  {nim:'22010001', nama:'Ahmad Fauzi',     hadir:47, alfa:3, izin:2},
-  {nim:'22010002', nama:'Siti Rahayu',     hadir:50, alfa:1, izin:1},
-  {nim:'22010003', nama:'Budi Santoso',    hadir:44, alfa:5, izin:3},
-  {nim:'22010004', nama:'Dewi Lestari',    hadir:49, alfa:2, izin:1},
-  {nim:'22010005', nama:'Eko Prasetyo',    hadir:42, alfa:6, izin:4},
-  {nim:'22010006', nama:'Fitri Handayani', hadir:51, alfa:0, izin:1},
-  {nim:'22010007', nama:'Gilang Ramadan',  hadir:39, alfa:9, izin:4},
+  {nim:'22010001', nama:'Ahmad Fauzi',     hadir:47, alfa:3, izin:2, izinPending: false},
+  {nim:'22010002', nama:'Siti Rahayu',     hadir:50, alfa:1, izin:1, izinPending: false},
+  {nim:'22010003', nama:'Budi Santoso',    hadir:44, alfa:5, izin:3, izinPending: true},
+  {nim:'22010004', nama:'Dewi Lestari',    hadir:49, alfa:2, izin:1, izinPending: false},
+  {nim:'22010005', nama:'Eko Prasetyo',    hadir:42, alfa:6, izin:4, izinPending: true},
+  {nim:'22010006', nama:'Fitri Handayani', hadir:51, alfa:0, izin:1, izinPending: false},
+  {nim:'22010007', nama:'Gilang Ramadan',  hadir:39, alfa:9, izin:4, izinPending: true},
 ];
 
 var lokasiData = [
@@ -1272,55 +783,86 @@ function goTo(id) {
   window.scrollTo(0, 0);
 }
 
-function showToast(msg, type) {
-  // Simple alert fallback
-  alert(msg);
-}
-
 /* ============================================================
-   LOGIN
+   LOGIN VALID
    ============================================================ */
 function setRole(r) {
   currentRole = r;
   document.querySelectorAll('.role-tab').forEach((t, i) => {
     t.classList.toggle('active', ['mahasiswa','dosen','admin'][i] === r);
   });
+  // Update placeholder ID sesuai role
+  var hints = { mahasiswa: '22010001', dosen: 'D001', admin: 'admin' };
+  $('inp-id').placeholder = 'Contoh: ' + hints[r];
+  $('login-err').style.display = 'none';
+}
+
+function togglePass() {
+  var inp = $('inp-pass');
+  var icon = $('pass-eye-icon');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    icon.className = 'ti ti-eye-off';
+  } else {
+    inp.type = 'password';
+    icon.className = 'ti ti-eye';
+  }
+}
+
+function showLoginErr(msg) {
+  var el = $('login-err');
+  $('login-err-msg').textContent = msg;
+  el.style.display = 'flex';
+  // Animasi shake
+  $('inp-pass').style.borderColor = 'var(--c-red)';
+  $('inp-pass').style.boxShadow = '0 0 0 3px var(--c-red-dim)';
+  setTimeout(() => {
+    $('inp-pass').style.borderColor = '';
+    $('inp-pass').style.boxShadow = '';
+  }, 2000);
 }
 
 function doLogin() {
   var id = $('inp-id').value.trim();
-  var pw = $('inp-pass').value.trim();
-  var errEl = $('login-err');
+  var pw = $('inp-pass').value;
+  $('login-err').style.display = 'none';
 
-  if (!id || !pw) {
-    errEl.style.display = 'flex';
-    errEl.innerHTML = '<i class="ti ti-alert-circle" style="margin-right:6px"></i>Mohon isi semua field.';
+  if (!id) { showLoginErr('ID / NIM tidak boleh kosong.'); $('inp-id').focus(); return; }
+  if (!pw)  { showLoginErr('Password tidak boleh kosong.'); $('inp-pass').focus(); return; }
+
+  var acc = accounts[currentRole];
+  if (id !== acc.id) {
+    showLoginErr('ID ' + (currentRole === 'mahasiswa' ? 'NIM' : 'NIP') + ' tidak ditemukan untuk peran ini.');
     return;
   }
-  errEl.style.display = 'none';
+  if (pw !== acc.pass) {
+    showLoginErr('Password salah. Silakan coba lagi.');
+    $('inp-pass').value = '';
+    $('inp-pass').focus();
+    return;
+  }
 
-  var initials = id.substring(0,2).toUpperCase();
+  // Login sukses
+  var initials = acc.nama.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
 
   if (currentRole === 'mahasiswa') {
-    $('mhs-name').textContent = 'Selamat datang, ' + id;
+    $('mhs-name').textContent = 'Selamat datang, ' + acc.nama;
     $('mhs-avatar').textContent = initials;
     updateMhsStats(47, 3, 2);
     renderRiwayat();
     goTo('screen-mhs');
   } else if (currentRole === 'dosen') {
-    $('dosen-name').textContent = 'Dosen: ' + id;
+    $('dosen-name').textContent = acc.nama;
     $('dosen-avatar').textContent = initials;
     $('d-hadir').textContent = '47';
     $('d-alfa').textContent = '3';
     $('d-izin').textContent = '2';
-    // reset tabs UI
     document.querySelectorAll('#screen-dosen .tab-btn').forEach((t, i) => t.classList.toggle('active', i === 0));
     renderDosenTable('hadir');
     goTo('screen-dosen');
   } else {
-    $('admin-name').textContent = 'Admin: ' + id;
+    $('admin-name').textContent = acc.nama;
     $('admin-avatar').textContent = initials;
-    // reset admin tabs
     document.querySelectorAll('.admin-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
     renderAdminContent('lokasi');
     goTo('screen-admin');
@@ -1329,11 +871,14 @@ function doLogin() {
 
 function logout() {
   stopCam();
+  $('inp-id').value = '';
+  $('inp-pass').value = '';
+  $('login-err').style.display = 'none';
   goTo('screen-login');
 }
 
 /* ============================================================
-   MAHASISWA STATS
+   MHS STATS & RIWAYAT
    ============================================================ */
 function updateMhsStats(hadir, alfa, izin) {
   $('mhs-hadir').textContent = hadir;
@@ -1342,16 +887,12 @@ function updateMhsStats(hadir, alfa, izin) {
   $('r-hadir').textContent = hadir;
   $('r-alfa').textContent = alfa;
   $('r-izin').textContent = izin;
-
   var total = hadir + alfa + izin;
   var pct = total > 0 ? Math.round(hadir / total * 1000) / 10 : 0;
   $('mhs-pct').textContent = pct + '%';
   $('mhs-pct-bar').style.width = pct + '%';
 }
 
-/* ============================================================
-   RIWAYAT TABLE
-   ============================================================ */
 function renderRiwayat() {
   var statusLabel = {hadir:'Hadir', alfa:'Alfa', izin:'Izin', sakit:'Sakit'};
   $('tbl-riwayat').innerHTML = riwayatData.map(r => `
@@ -1360,8 +901,35 @@ function renderRiwayat() {
       <td>${r.mk}</td>
       <td style="font-family:var(--font-mono)">${r.waktu}</td>
       <td><span class="badge badge-${r.status}">${statusLabel[r.status] || r.status}</span></td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
+}
+
+/* ============================================================
+   FILE UPLOAD HANDLER
+   ============================================================ */
+function handleFileUpload(input) {
+  if (!input.files || !input.files[0]) { $('file-preview-wrap').style.display = 'none'; return; }
+  var file = input.files[0];
+  var sizeKb = (file.size / 1024).toFixed(1);
+  $('file-preview-name').textContent = file.name;
+  $('file-preview-size').textContent = file.type.split('/')[1].toUpperCase() + ' · ' + sizeKb + ' KB';
+  $('file-preview-wrap').style.display = 'block';
+
+  // Simpan ke uploadedFileData untuk dipakai dosen
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    uploadedFileData = { name: file.name, size: sizeKb + ' KB', type: file.type, dataUrl: e.target.result };
+    // Langsung simpan ke suratData NIM mahasiswa aktif
+    suratData['22010001'] = { nama: file.name, meta: file.type.toUpperCase().split('/')[1] + ' · Baru dikirim', hasImage: file.type.startsWith('image/'), dataUrl: e.target.result };
+  };
+  reader.readAsDataURL(file);
+}
+
+function submitIzin() {
+  var ket = $('izin-ket').value.trim();
+  if (!ket) { alert('Mohon isi keterangan izin.'); return; }
+  alert('Permohonan izin berhasil dikirim dan menunggu persetujuan dosen.');
+  $('izin-ket').value = '';
 }
 
 /* ============================================================
@@ -1376,8 +944,6 @@ function initCam() {
   $('cam-disabled').querySelector('p').textContent = 'Kamera nonaktif\nMenunggu validasi lokasi…';
   $('cam-overlay').style.display = 'flex';
   $('btn-ambil').disabled = true;
-
-  // Auto-simulate in range after 1.5s
   setTimeout(() => { simulateInRange(); }, 1500);
 }
 
@@ -1388,16 +954,10 @@ function simulateInRange() {
   $('loc-text').innerHTML = '<i class="ti ti-map-pin" style="font-size:12px"></i> Lokasi terdeteksi: Kampus A — dalam jangkauan 100m';
   $('cam-disabled').style.display = 'none';
   $('btn-ambil').disabled = false;
-
   if (!camStream) {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
-      .then(s => {
-        camStream = s;
-        $('cam-video').srcObject = s;
-      })
-      .catch(() => {
-        // Camera not available (permissions denied), still allow demo
-      });
+      .then(s => { camStream = s; $('cam-video').srcObject = s; })
+      .catch(() => {});
   }
 }
 
@@ -1413,33 +973,33 @@ function simulateOutRange() {
 }
 
 function stopCam() {
-  if (camStream) {
-    camStream.getTracks().forEach(t => t.stop());
-    camStream = null;
-  }
+  if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
 }
 
 function ambilFoto() {
   var video  = $('cam-video');
   var canvas = $('cam-canvas');
   var now    = new Date();
-
   $('s-tanggal').textContent = now.toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   $('s-waktu').textContent   = now.toLocaleTimeString('id-ID');
 
+  var dataUrl = null;
   if (camStream && video.readyState >= 2) {
     canvas.width  = video.videoWidth  || 320;
     canvas.height = video.videoHeight || 240;
     canvas.getContext('2d').drawImage(video, 0, 0);
+    dataUrl = canvas.toDataURL('image/jpeg', 0.85);
     var img = $('selfie-preview');
-    img.src = canvas.toDataURL('image/jpeg', 0.85);
+    img.src = dataUrl;
     img.style.display = 'block';
   }
+
+  // Simpan selfie ke data untuk dilihat dosen
+  selfieData['22010001'] = { dataUrl: dataUrl, waktu: now.toLocaleString('id-ID') };
 
   stopCam();
   goTo('screen-success');
 
-  // Update riwayat
   riwayatData.unshift({
     tgl: now.toLocaleDateString('id-ID'),
     mk: 'Matematika Dasar',
@@ -1447,7 +1007,6 @@ function ambilFoto() {
     status: 'hadir'
   });
 
-  // Update stats
   var newHadir = parseInt($('r-hadir').textContent) + 1;
   updateMhsStats(newHadir, parseInt($('mhs-alfa').textContent), parseInt($('mhs-izin').textContent));
 }
@@ -1457,12 +1016,8 @@ function submitAbsensi() {
   goTo('screen-mhs');
 }
 
-function submitIzin() {
-  alert('Permohonan izin berhasil dikirim dan menunggu persetujuan dosen.');
-}
-
 /* ============================================================
-   DOSEN TABLE
+   DOSEN TABLE + MODAL
    ============================================================ */
 function setDosenTab(tab, el) {
   document.querySelectorAll('#screen-dosen .tab-btn').forEach(t => t.classList.remove('active'));
@@ -1473,16 +1028,22 @@ function setDosenTab(tab, el) {
 function renderDosenTable(tab) {
   var header = `<thead><tr>
     <th>NIM</th><th>Nama</th>
-    <th>Hadir</th><th>Alfa</th><th>Izin</th><th>Status</th>
+    <th>Hadir</th><th>Alfa</th><th>Izin</th><th>Status</th><th>Aksi</th>
   </tr></thead>`;
 
   var rows = mhsData.map(m => {
-    var show = (tab === 'hadir' && m.alfa < 5)
+    var show = tab === 'semua'
+            || (tab === 'hadir' && m.alfa < 5)
             || (tab === 'alfa'  && m.alfa >= 5)
-            || (tab === 'izin'  && m.izin >= 2);
+            || (tab === 'izin'  && m.izinPending);
     if (!show) return '';
-    var st = tab === 'hadir' ? 'hadir' : tab === 'alfa' ? 'alfa' : 'izin';
-    var lbl = {hadir:'Hadir', alfa:'Alfa', izin:'Izin'}[st];
+    var st, lbl;
+    if (m.izinPending) { st = 'izin'; lbl = 'Izin Pending'; }
+    else if (m.alfa >= 5) { st = 'alfa'; lbl = 'Alfa'; }
+    else { st = 'hadir'; lbl = 'Hadir'; }
+
+    var hasSurat = !!suratData[m.nim];
+    var hasSelfie = !!(selfieData[m.nim] && selfieData[m.nim].dataUrl);
     return `<tr>
       <td style="font-family:var(--font-mono);font-size:12px">${m.nim}</td>
       <td>${m.nama}</td>
@@ -1490,18 +1051,113 @@ function renderDosenTable(tab) {
       <td style="font-family:var(--font-mono)">${m.alfa}</td>
       <td style="font-family:var(--font-mono)">${m.izin}</td>
       <td><span class="badge badge-${st}">${lbl}</span></td>
+      <td>
+        <button class="dosen-action-btn" onclick="openModal('${m.nim}')">
+          <i class="ti ti-eye"></i> Lihat
+          ${hasSelfie ? '<i class="ti ti-camera" style="font-size:11px;opacity:.7" title="Ada foto selfie"></i>' : ''}
+          ${hasSurat  ? '<i class="ti ti-file-description" style="font-size:11px;opacity:.7" title="Ada surat izin"></i>' : ''}
+        </button>
+      </td>
     </tr>`;
   }).join('');
 
   if (!rows.replace(/\s/g,'')) {
-    rows = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-mood-empty"></i>Tidak ada data</div></td></tr>`;
+    rows = `<tr><td colspan="7"><div class="empty-state"><i class="ti ti-mood-empty"></i>Tidak ada data</div></td></tr>`;
   }
-
   $('tbl-dosen').innerHTML = header + '<tbody>' + rows + '</tbody>';
 }
 
+function openModal(nim) {
+  var m = mhsData.find(x => x.nim === nim);
+  if (!m) return;
+  modalCurrentNim = nim;
+
+  $('modal-mhs-nama').textContent = m.nama;
+  $('modal-nim').textContent  = m.nim;
+  $('modal-nama').textContent = m.nama;
+  $('modal-hadir').textContent = m.hadir;
+  $('modal-alfa').textContent  = m.alfa;
+  $('modal-izin').textContent  = m.izin;
+  var total = m.hadir + m.alfa + m.izin;
+  var pct = total > 0 ? Math.round(m.hadir / total * 100) : 0;
+  var pctColor = pct >= 80 ? 'var(--c-green)' : pct >= 60 ? 'var(--c-amber)' : 'var(--c-red)';
+  $('modal-pct').textContent = pct + '%';
+  $('modal-pct').style.color = pctColor;
+
+  // Foto selfie
+  var sd = selfieData[nim];
+  if (sd && sd.dataUrl) {
+    $('modal-no-selfie').style.display = 'none';
+    $('modal-selfie-img').src = sd.dataUrl;
+    $('modal-selfie-img').style.display = 'block';
+    $('modal-selfie-info').style.display = 'block';
+    $('modal-selfie-time').textContent = sd.waktu;
+  } else {
+    $('modal-no-selfie').style.display = 'flex';
+    $('modal-selfie-img').style.display = 'none';
+    $('modal-selfie-info').style.display = 'none';
+  }
+
+  // Surat izin
+  var sur = suratData[nim];
+  if (sur) {
+    $('modal-surat-section').style.display = 'block';
+    $('modal-surat-nama').textContent = sur.nama;
+    $('modal-surat-meta').textContent = sur.meta;
+    if (sur.hasImage && sur.dataUrl) {
+      $('modal-surat-img-wrap').style.display = 'block';
+      $('modal-surat-img').src = sur.dataUrl;
+    } else {
+      $('modal-surat-img-wrap').style.display = 'none';
+    }
+  } else {
+    $('modal-surat-section').style.display = 'none';
+  }
+
+  // Tombol setujui/tolak
+  var showApprove = m.izinPending;
+  $('modal-approve-btn').style.display = showApprove ? 'inline-flex' : 'none';
+  $('modal-reject-btn').style.display  = showApprove ? 'inline-flex' : 'none';
+
+  $('modal-detail').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  $('modal-detail').classList.remove('open');
+  document.body.style.overflow = '';
+  modalCurrentNim = null;
+}
+
+function approveFromModal() {
+  var m = mhsData.find(x => x.nim === modalCurrentNim);
+  if (!m) return;
+  m.izinPending = false;
+  var idx = izinPending.findIndex(i => i.nim === modalCurrentNim);
+  if (idx >= 0) izinPending.splice(idx, 1);
+  closeModal();
+  renderDosenTable('semua');
+  alert('Izin ' + m.nama + ' telah disetujui.');
+}
+
+function rejectFromModal() {
+  var m = mhsData.find(x => x.nim === modalCurrentNim);
+  if (!m) return;
+  m.izinPending = false;
+  var idx = izinPending.findIndex(i => i.nim === modalCurrentNim);
+  if (idx >= 0) izinPending.splice(idx, 1);
+  closeModal();
+  renderDosenTable('semua');
+  alert('Izin ' + m.nama + ' telah ditolak.');
+}
+
+// Tutup modal saat klik overlay
+$('modal-detail').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
 /* ============================================================
-   ADMIN CONTENT
+   ADMIN
    ============================================================ */
 function setAdminTab(tab, el) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -1511,7 +1167,6 @@ function setAdminTab(tab, el) {
 
 function renderAdminContent(tab) {
   var el = $('admin-content');
-
   if (tab === 'lokasi') {
     var cards = lokasiData.map((l, i) => `
       <div class="location-card">
@@ -1526,141 +1181,39 @@ function renderAdminContent(tab) {
         </div>
         <div style="display:flex;align-items:center;gap:10px">
           <span style="font-size:12px;color:var(--c-text2)">${l.aktif ? 'Aktif' : 'Nonaktif'}</span>
-          <div class="toggle ${l.aktif ? 'on' : ''}" onclick="toggleLokasi(${i})" id="tog-${i}"></div>
+          <div class="toggle ${l.aktif ? 'on' : ''}" onclick="toggleLokasi(${i})"></div>
         </div>
       </div>`).join('');
-
-    el.innerHTML = `
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
-          <div class="section-title" style="margin:0">Kelola Lokasi Absensi</div>
-          <button class="btn btn-primary btn-sm" onclick="addLokasi()">
-            <i class="ti ti-plus"></i> Tambah Lokasi
-          </button>
-        </div>
-        ${cards}
-      </div>`;
+    el.innerHTML = `<div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem"><div class="section-title" style="margin:0">Kelola Lokasi Absensi</div><button class="btn btn-primary btn-sm" onclick="addLokasi()"><i class="ti ti-plus"></i> Tambah Lokasi</button></div>${cards}</div>`;
 
   } else if (tab === 'kehadiran') {
     var rows = mhsData.map(m => {
       var total = m.hadir + m.alfa + m.izin;
       var pct = Math.round(m.hadir / total * 100);
       var pctColor = pct >= 80 ? 'var(--c-green)' : pct >= 60 ? 'var(--c-amber)' : 'var(--c-red)';
-      return `<tr>
-        <td style="font-family:var(--font-mono);font-size:12px">${m.nim}</td>
-        <td>${m.nama}</td>
-        <td style="font-family:var(--font-mono)">${m.hadir}</td>
-        <td><span class="badge badge-alfa">${m.alfa}</span></td>
-        <td><span class="badge badge-izin">${m.izin}</span></td>
-        <td style="font-family:var(--font-mono);color:${pctColor};font-weight:700">${pct}%</td>
-      </tr>`;
+      return `<tr><td style="font-family:var(--font-mono);font-size:12px">${m.nim}</td><td>${m.nama}</td><td style="font-family:var(--font-mono)">${m.hadir}</td><td><span class="badge badge-alfa">${m.alfa}</span></td><td><span class="badge badge-izin">${m.izin}</span></td><td style="font-family:var(--font-mono);color:${pctColor};font-weight:700">${pct}%</td></tr>`;
     }).join('');
-
-    el.innerHTML = `
-      <div class="card">
-        <div class="section-title">Rekap Kehadiran Semua Mahasiswa</div>
-        <table class="table">
-          <thead><tr>
-            <th>NIM</th><th>Nama</th><th>Hadir</th><th>Alfa</th><th>Izin</th><th>%</th>
-          </tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>`;
+    el.innerHTML = `<div class="card"><div class="section-title">Rekap Kehadiran Semua Mahasiswa</div><table class="table"><thead><tr><th>NIM</th><th>Nama</th><th>Hadir</th><th>Alfa</th><th>Izin</th><th>%</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 
   } else if (tab === 'pengguna') {
-    var urows = mhsData.map(m => `
-      <tr>
-        <td style="font-family:var(--font-mono);font-size:12px">${m.nim}</td>
-        <td>${m.nama}</td>
-        <td><span class="badge badge-hadir">Mahasiswa</span></td>
-        <td>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-sm"><i class="ti ti-edit"></i></button>
-            <button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
-          </div>
-        </td>
-      </tr>`).join('');
-
-    urows += `<tr>
-      <td style="font-family:var(--font-mono);font-size:12px">D001</td>
-      <td>Prof. Dr. Anton Setiawan</td>
-      <td><span class="badge badge-izin">Dosen</span></td>
-      <td><button class="btn btn-sm"><i class="ti ti-edit"></i></button></td>
-    </tr>`;
-
-    el.innerHTML = `
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
-          <div class="section-title" style="margin:0">Manajemen Pengguna</div>
-          <button class="btn btn-primary btn-sm"><i class="ti ti-plus"></i> Tambah</button>
-        </div>
-        <table class="table">
-          <thead><tr><th>ID</th><th>Nama</th><th>Peran</th><th>Aksi</th></tr></thead>
-          <tbody>${urows}</tbody>
-        </table>
-      </div>`;
+    var urows = mhsData.map(m => `<tr><td style="font-family:var(--font-mono);font-size:12px">${m.nim}</td><td>${m.nama}</td><td><span class="badge badge-hadir">Mahasiswa</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-sm"><i class="ti ti-edit"></i></button><button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button></div></td></tr>`).join('');
+    urows += `<tr><td style="font-family:var(--font-mono);font-size:12px">D001</td><td>Prof. Dr. Anton Setiawan</td><td><span class="badge badge-izin">Dosen</span></td><td><button class="btn btn-sm"><i class="ti ti-edit"></i></button></td></tr>`;
+    el.innerHTML = `<div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem"><div class="section-title" style="margin:0">Manajemen Pengguna</div><button class="btn btn-primary btn-sm"><i class="ti ti-plus"></i> Tambah</button></div><table class="table"><thead><tr><th>ID</th><th>Nama</th><th>Peran</th><th>Aksi</th></tr></thead><tbody>${urows}</tbody></table></div>`;
 
   } else if (tab === 'izin') {
-    var irows = izinPending.map((iz, i) => `
-      <tr>
-        <td style="font-family:var(--font-mono);font-size:12px">${iz.nim}</td>
-        <td>${iz.nama}</td>
-        <td>${iz.jenis}</td>
-        <td style="font-family:var(--font-mono);font-size:12px">${iz.tgl}</td>
-        <td style="color:var(--c-text2)">${iz.ket}</td>
-        <td>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-sm btn-success" onclick="approveIzin(${i})"><i class="ti ti-check"></i></button>
-            <button class="btn btn-sm btn-danger"  onclick="rejectIzin(${i})"><i class="ti ti-x"></i></button>
-          </div>
-        </td>
-      </tr>`).join('');
-
-    if (!irows) {
-      irows = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-clipboard-check"></i>Tidak ada permohonan tertunda</div></td></tr>`;
-    }
-
-    el.innerHTML = `
-      <div class="card">
-        <div class="section-title">Persetujuan Izin / Sakit</div>
-        <table class="table">
-          <thead><tr>
-            <th>NIM</th><th>Nama</th><th>Jenis</th><th>Tanggal</th><th>Keterangan</th><th>Aksi</th>
-          </tr></thead>
-          <tbody>${irows}</tbody>
-        </table>
-      </div>`;
+    var irows = izinPending.map((iz, i) => `<tr><td style="font-family:var(--font-mono);font-size:12px">${iz.nim}</td><td>${iz.nama}</td><td>${iz.jenis}</td><td style="font-family:var(--font-mono);font-size:12px">${iz.tgl}</td><td style="color:var(--c-text2)">${iz.ket}</td><td><div style="display:flex;gap:6px"><button class="btn btn-sm btn-success" onclick="approveIzin(${i})"><i class="ti ti-check"></i></button><button class="btn btn-sm btn-danger" onclick="rejectIzin(${i})"><i class="ti ti-x"></i></button></div></td></tr>`).join('');
+    if (!irows) irows = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-clipboard-check"></i>Tidak ada permohonan tertunda</div></td></tr>`;
+    el.innerHTML = `<div class="card"><div class="section-title">Persetujuan Izin / Sakit</div><table class="table"><thead><tr><th>NIM</th><th>Nama</th><th>Jenis</th><th>Tanggal</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody>${irows}</tbody></table></div>`;
   }
 }
 
-function toggleLokasi(i) {
-  lokasiData[i].aktif = !lokasiData[i].aktif;
-  renderAdminContent('lokasi');
-}
-
+function toggleLokasi(i) { lokasiData[i].aktif = !lokasiData[i].aktif; renderAdminContent('lokasi'); }
 function addLokasi() {
   var nama = prompt('Nama lokasi baru:');
-  if (nama && nama.trim()) {
-    lokasiData.push({ nama: nama.trim(), radius: 100, aktif: true, lat: -6.2, lng: 106.8 });
-    renderAdminContent('lokasi');
-  }
+  if (nama && nama.trim()) { lokasiData.push({ nama: nama.trim(), radius: 100, aktif: true, lat: -6.2, lng: 106.8 }); renderAdminContent('lokasi'); }
 }
-
-function approveIzin(i) {
-  if (i < izinPending.length) {
-    alert('Izin ' + izinPending[i].nama + ' disetujui.');
-    izinPending.splice(i, 1);
-    renderAdminContent('izin');
-  }
-}
-
-function rejectIzin(i) {
-  if (i < izinPending.length) {
-    alert('Izin ' + izinPending[i].nama + ' ditolak.');
-    izinPending.splice(i, 1);
-    renderAdminContent('izin');
-  }
-}
+function approveIzin(i) { if (i < izinPending.length) { alert('Izin ' + izinPending[i].nama + ' disetujui.'); izinPending.splice(i, 1); renderAdminContent('izin'); } }
+function rejectIzin(i)  { if (i < izinPending.length) { alert('Izin ' + izinPending[i].nama + ' ditolak.'); izinPending.splice(i, 1); renderAdminContent('izin'); } }
 
 /* ============================================================
    INIT
@@ -1675,3 +1228,8 @@ function rejectIzin(i) {
 </script>
 </body>
 </html>
+HTMLEOF
+echo "Done: $(wc -l < /mnt/user-data/outputs/absensi_fixed.html) lines"
+Keluaran
+
+Done: 1200 lines
