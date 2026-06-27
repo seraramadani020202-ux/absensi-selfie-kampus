@@ -701,8 +701,18 @@ var modalCurrentNim = null;
 var uploadedFileData = null; // { name, size, dataUrl }
 
 // Akun valid
+// Mahasiswa sekarang berupa daftar (semua 7 NIM bisa login, password = NIM masing-masing)
+var mahasiswaAccounts = [
+  { id: '22010001', pass: '22010001', nama: 'Ahmad Fauzi' },
+  { id: '22010002', pass: '22010002', nama: 'Siti Rahayu' },
+  { id: '22010003', pass: '22010003', nama: 'Budi Santoso' },
+  { id: '22010004', pass: '22010004', nama: 'Dewi Lestari' },
+  { id: '22010005', pass: '22010005', nama: 'Eko Prasetyo' },
+  { id: '22010006', pass: '22010006', nama: 'Fitri Handayani' },
+  { id: '22010007', pass: '22010007', nama: 'Gilang Ramadan' }
+];
+
 var accounts = {
-  mahasiswa: { id: '22010001', pass: 'mhs123', nama: 'Ahmad Fauzi' },
   dosen:     { id: 'D001',    pass: 'dosen123', nama: 'Prof. Dr. Anton Setiawan' },
   admin:     { id: 'admin',   pass: 'admin123', nama: 'Administrator' }
 };
@@ -812,25 +822,43 @@ function doLogin() {
   if (!id) { showLoginErr('ID / NIM tidak boleh kosong.'); $('inp-id').focus(); return; }
   if (!pw)  { showLoginErr('Password tidak boleh kosong.'); $('inp-pass').focus(); return; }
 
-  var acc = accounts[currentRole];
-  if (id !== acc.id) {
-    showLoginErr('ID ' + (currentRole === 'mahasiswa' ? 'NIM' : 'NIP') + ' tidak ditemukan untuk peran ini.');
-    return;
-  }
-  if (pw !== acc.pass) {
-    showLoginErr('Password salah. Silakan coba lagi.');
-    $('inp-pass').value = '';
-    $('inp-pass').focus();
-    return;
+  var acc;
+  if (currentRole === 'mahasiswa') {
+    acc = mahasiswaAccounts.find(a => a.id === id);
+    if (!acc) {
+      showLoginErr('ID NIM tidak ditemukan untuk peran ini.');
+      return;
+    }
+    if (pw !== acc.pass) {
+      showLoginErr('Password salah. Silakan coba lagi.');
+      $('inp-pass').value = '';
+      $('inp-pass').focus();
+      return;
+    }
+  } else {
+    acc = accounts[currentRole];
+    if (id !== acc.id) {
+      showLoginErr('ID NIP tidak ditemukan untuk peran ini.');
+      return;
+    }
+    if (pw !== acc.pass) {
+      showLoginErr('Password salah. Silakan coba lagi.');
+      $('inp-pass').value = '';
+      $('inp-pass').focus();
+      return;
+    }
   }
 
   // Login sukses
   var initials = acc.nama.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
 
   if (currentRole === 'mahasiswa') {
+    modalCurrentNim = null;
+    window.loggedInNim = acc.id;
+    var mData = mhsData.find(x => x.nim === acc.id) || { hadir: 0, alfa: 0, izin: 0 };
     $('mhs-name').textContent = 'Selamat datang, ' + acc.nama;
     $('mhs-avatar').textContent = initials;
-    updateMhsStats(47, 3, 2);
+    updateMhsStats(mData.hadir, mData.alfa, mData.izin);
     renderRiwayat();
     goTo('screen-mhs');
   } else if (currentRole === 'dosen') {
@@ -902,7 +930,7 @@ function handleFileUpload(input) {
   reader.onload = function(e) {
     uploadedFileData = { name: file.name, size: sizeKb + ' KB', type: file.type, dataUrl: e.target.result };
     // Langsung simpan ke suratData NIM mahasiswa aktif
-    suratData['22010001'] = { nama: file.name, meta: file.type.toUpperCase().split('/')[1] + ' · Baru dikirim', hasImage: file.type.startsWith('image/'), dataUrl: e.target.result };
+    suratData[window.loggedInNim || '22010001'] = { nama: file.name, meta: file.type.toUpperCase().split('/')[1] + ' · Baru dikirim', hasImage: file.type.startsWith('image/'), dataUrl: e.target.result };
   };
   reader.readAsDataURL(file);
 }
@@ -977,7 +1005,7 @@ function ambilFoto() {
   }
 
   // Simpan selfie ke data untuk dilihat dosen
-  selfieData['22010001'] = { dataUrl: dataUrl, waktu: now.toLocaleString('id-ID') };
+  selfieData[window.loggedInNim || '22010001'] = { dataUrl: dataUrl, waktu: now.toLocaleString('id-ID') };
 
   stopCam();
   goTo('screen-success');
